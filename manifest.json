@@ -7,14 +7,17 @@
       "contextMenus",
       "scripting",
       "activeTab",
-      "storage"
+      "storage",
+      "sidePanel"
     ],
+    "side_panel": {
+      "default_path": "main.html"
+    },
     "background": {
       "service_worker": "service-worker.js",
       "type": "module"
     },
     "action": {
-      "default_title": "Test",
-      "default_popup": "main.html"
+      "default_title": "Open panel"
     }
   }

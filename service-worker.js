@@ -6,6 +6,14 @@ chrome.runtime.onInstalled.addListener(() =>
 	})
 );
 
+
+
+chrome.sidePanel
+  .setPanelBehavior({ openPanelOnActionClick: true })
+  .catch((error) => console.error(error));
+
+
+
 chrome.contextMenus.onClicked.addListener((info, tab) => {
 	const text = info.selectionText;
 	chrome.storage.local.get("apiKey").then(function (data) {
