@@ -42,6 +42,18 @@ bunx tailwindcss -i ./src/input.css -o ./src/output.css --watch
     Arabia or Iran - provides international usage
 3. Provide effective reasoning and possible replacements for the highlighted non inclusive text
 
+## All technical features:
+- context menu (right click highlighted text)
+- check highlighted button
+- real-time auto-inclusive adjustment (targets textareas, checks after 2s of idle time and only if the sidepanel is open)
+- file upload (txt and pdf)
+- settings with language (responds in another language), country, and religion
+- login
+- logout
+- invalid api key warning
+- go to cohere dashboard
+- advanced settings (adjust AI model parameters)
+
    
 ## Technology used:
 
@@ -50,7 +62,8 @@ To incorporate the project, we utilised the Cohere language model, and we implem
 
 ## The Future of Equil: 
 - Continuing to improve AI model accuracy with prompt adjustments and fine-tuning
-- Real time - Further implementation
-- More customizable
+- Real time: Further implementation, support for all contenteditable inputs
+- More customizable (model parameters)
 - Ability to give multiple different replacements and the user can choose what they prefer
-- Make UI available outside of the side panel - highlighting text and allow the user to hover over the text, choosing what to replace
+- Make UI available outside of the side panel: highlighting text and allow the user to hover over the text, choosing what to replace
+- Premium features (likely related to customization, more tokens, etc)
