@@ -26,6 +26,68 @@ function save(e) {
 		});
 }
 
+function readTextFile(file) {
+  return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = function(event) {
+          resolve(event.target.result);
+      };
+      reader.onerror = function(event) {
+          reject(event.target.error);
+      };
+      reader.readAsText(file);
+  });
+}
+
+async function fileSubmit() {
+	const fileInput = document.getElementById("file-upload");
+	const file = fileInput.files[0];
+	if (file) {
+		const fileName = file.name;
+		const fileExtension = fileName.split(".").pop().toLowerCase();
+
+		const allowedExtensions = ["txt", "pdf"];
+
+		if (allowedExtensions.includes(fileExtension)) {
+			if (fileExtension === "txt") {
+        const contents = await readTextFile(file);
+        display.innerText = contents;
+        getResults(contents);
+      } else if (fileExtension === "pdf") {
+        // alert("Received pdf");
+        const fileReader = new FileReader();
+        fileReader.onload = function() {
+            const typedArray = new Uint8Array(this.result);
+            pdfjsLib.getDocument(typedArray).promise.then(function(pdf) {
+                let textContent = '';
+                const pagesPromises = [];
+
+                for (let i = 1; i <= pdf.numPages; i++) {
+                    pagesPromises.push(
+                        pdf.getPage(i).then(function(page) {
+                            return page.getTextContent().then(function(textContentPage) {
+                                const pageText = textContentPage.items.map(item => item.str).join(' ');
+                                textContent += pageText + ' ';
+                            });
+                        })
+                    );
+                }
+
+                Promise.all(pagesPromises).then(() => {
+                  display.innerText = textContent;
+                  getResults(textContent);
+                });
+            });
+        };
+        fileReader.readAsArrayBuffer(file);
+      }
+		} else {
+			alert("File extension is not allowed. Allowed extensions are .txt and .pdf");
+      fileInput.value = "";
+		}
+	}
+}
+
 function logout() {
 	chrome.storage.local.remove("apiKey");
 	showSetup();
@@ -80,15 +142,8 @@ async function onclick() {
 	});
 }
 
-chrome.runtime.onMessage.addListener(function (request, sender) {
-	// console.log(request.message, sender);
-	const event = JSON.parse(request.message);
-	if (event.event !== "SELECTED") return;
-  const text = event.body;
-  // check if the highlighted text is already prompted
-  if (display.innerText === text) return;
-	display.innerText = text;
-	chrome.storage.local.get("apiKey").then(function (data) {
+function getResults(text) {
+  chrome.storage.local.get("apiKey").then(function (data) {
 		if (typeof data["apiKey"] != "undefined") {
 			const apiKey = data["apiKey"];
 			fetch("https://api.cohere.com/v1/chat", {
@@ -155,9 +210,6 @@ ${text}`,
 						// Append the new div to the container
 						container.appendChild(newDiv);
 					});
-					
-
-					
 				});
 		} else {
 			chrome.scripting.executeScript({
@@ -168,9 +220,21 @@ ${text}`,
 			});
 		}
 	});
+}
+
+chrome.runtime.onMessage.addListener(function (request, sender) {
+	// console.log(request.message, sender);
+	const event = JSON.parse(request.message);
+	if (event.event !== "SELECTED") return;
+	const text = event.body;
+	// check if the highlighted text is already prompted
+	if (display.innerText === text) return;
+	display.innerText = text;
+	getResults(text);
 });
 
 document.addEventListener("DOMContentLoaded", load);
 document.getElementById("btn").addEventListener("click", save);
 document.getElementById("fn").addEventListener("click", onclick);
 document.getElementById("logout").addEventListener("click", logout);
+document.getElementById("file-upload").addEventListener("change", fileSubmit);
