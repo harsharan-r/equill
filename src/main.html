@@ -39,39 +39,33 @@
 				grid-area: 1 / 1;
 				z-index: 9;
 			}
-			/* Custom styling specific to input[type="range"] */
-			/* Remove default browser styling */
 			input[type="range"] {
-				/* -webkit-appearance: none;
-				appearance: none; */
 				height: 12px;
-				background-color: #9f7aea; /* Dark purple trackbar */
+				background-color: #9f7aea;
 				/* outline: none; */
 				border-radius: 6px;
 			}
 
-			/* WebKit (Chrome, Safari, Opera) */
 			input[type="range"]::-webkit-slider-thumb {
 				-webkit-appearance: none;
 				appearance: none;
-				width: 10px; /* Slider width */
-				height: 12px; /* Slider height */
-				background-color: white; /* Slider color */
-				border: 1px solid #9f7aea; /* Slider border */
+				width: 10px;
+				height: 12px;
+				background-color: white;
+				border: 1px solid #9f7aea;
 				cursor: pointer;
-				border-radius: 32px; /* Remove border-radius for rectangular shape */
-				transition: background-color 0.15s ease-in-out; /* Smooth transition */
+				border-radius: 32px;
+				transition: background-color 0.15s ease-in-out;
 			}
 
-			/* Firefox */
 			input[type="range"]::-moz-range-thumb {
-				width: 24px; /* Slider width */
-				height: 12px; /* Slider height */
-				background-color: white; /* Slider color */
-				border: 2px solid #9f7aea; /* Slider border */
+				width: 24px;
+				height: 12px;
+				background-color: white;
+				border: 2px solid #9f7aea;
 				cursor: pointer;
-				border-radius: 0; /* Remove border-radius for rectangular shape */
-				transition: background-color 0.15s ease-in-out; /* Smooth transition */
+				border-radius: 0;
+				transition: background-color 0.15s ease-in-out;
 			}
 		</style>
 
