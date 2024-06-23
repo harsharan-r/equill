@@ -16,6 +16,9 @@
 			.transition-opacity {
 				transition: opacity 3s ease-out;
 			}
+      .transition-bg {
+        transition: background-color .2s ease-in;
+      }
 		</style>
 		<script src="tailwindcdn.js"></script>
 	</head>
@@ -107,7 +110,7 @@
 		<div id="dashboard" class="flex flex-col w-full h-full hidden bg-gradient-to-b from-[#7e5bef] to-[#8e44ad] text-white overflow-auto">
 			<div class="flex flex-col items-start gap-6 p-6">
 				<div class="flex w-full flex-col items-start gap-4">
-					<a href="#" class="flex items-center gap-2">
+					<a href="#" class="flex items-center gap-2 cursor-default">
 						<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="48" height="48">
 							<path
 								d="M0 0 C5.58769341 3.30375029 10.15149875 8.01794942 12.6171875 14.08984375 C13.30818738 20.53319329 13.47260522 26.63908077 9.6171875 32.08984375 C5.25802467 36.89610021 1.41792807 40.72588775 -5.23828125 41.36328125 C-12.70590057 41.59089919 -17.73233657 41.19133979 -23.3828125 36.08984375 C-28.24058163 31.44382353 -30.10431826 26.92120183 -30.7578125 20.27734375 C-30.57261375 14.57975859 -28.55213359 9.50077169 -24.734375 5.2578125 C-17.8603229 -0.91082377 -8.9463262 -3.41720329 0 0 Z "
@@ -202,7 +205,7 @@
 						</svg>
 						<span class="text-lg font-semibold">Equill</span>
 					</a>
-					<button class="w-full bg-purple-900 rounded-md p-2 text-lg" id="fn">Make highlighted text inclusive</button>
+					<button class="flex w-full p-2 items-center justify-center gap-2 rounded-md text-lg text-white bg-black hover:bg-black/50 hover:text-white transition-bg" id="fn">Make highlighted text inclusive</button>
 				</div>
 
 				<div class="flex w-full flex-col items-start gap-4">

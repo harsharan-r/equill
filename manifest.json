@@ -11,6 +11,11 @@
 			"run_at": "document_start"
 		}
 	],
+	"icons": {
+		"16": "icon16.png",
+		"48": "icon48.png",
+		"128": "icon128.png"
+	},
 	"permissions": ["contextMenus", "scripting", "activeTab", "storage", "sidePanel"],
 	"side_panel": {
 		"default_path": "main.html"
