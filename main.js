@@ -126,7 +126,38 @@ ${text}`,
 			})
 				.then((res) => res.json())
 				.then((res) => {
-					document.getElementById("results").innerText = res.text;
+					const obj = JSON.parse(res.text)
+					document.getElementById("results").innerText = obj.inclusiveText; 
+					//document.getElementById("suggestions").innerText = "Detected Word: " + JSON.stringify(obj.nonInclusiveTexts[0].text) + "\n\n" + "Reason for Change: " + obj.nonInclusiveTexts[0].reason + "\n\n" + "Replacment: " + JSON.stringify(obj.nonInclusiveTexts[0].replacement); 
+					//document.getElementById("suggestions").innerText = res.text
+
+					console.log(obj);
+					console.log(obj.nonInclusiveTexts);					
+					// Get the parent container
+					const container = document.getElementById('suggestions-container');
+					container.innerHTML =``;
+					
+					// Function to add divs based on the list
+					
+					obj.nonInclusiveTexts.forEach(item => {
+						// Create a new div element
+						const newDiv = document.createElement('div');
+
+
+						// Add a class for styling
+						newDiv.classList.add('rounded-lg', 'bg-white/10', 'px-3', 'py-2', 'text-sm', 'font-medium', 'w-full');
+						
+						// Set the content of the div
+						newDiv.innerHTML = `<strong>Text:</strong> ${item.text}<br><br>
+											<strong>Reason:</strong> ${item.reason}<br><br>
+											<strong>Replacement:</strong> ${item.replacement || 'N/A'}`;
+						
+						// Append the new div to the container
+						container.appendChild(newDiv);
+					});
+					
+
+					
 				});
 		} else {
 			chrome.scripting.executeScript({

@@ -9,14 +9,16 @@ chrome.runtime.onInstalled.addListener(() =>
 chrome.sidePanel.setPanelBehavior({ openPanelOnActionClick: true }).catch((error) => console.error(error));
 
 chrome.contextMenus.onClicked.addListener((info, tab) => {
-	if (info.menuItemId === "EquillCtxId") {
-		chrome.sidePanel.open({ windowId: tab.windowId }, function () {
-			chrome.runtime.sendMessage({
-				message: JSON.stringify({
-					event: "SELECTED",
-					body: info.selectionText,
-				}),
-			});
-		});
-	}
+    if (info.menuItemId === "EquillCtxId") {
+        chrome.sidePanel.open({ windowId: tab.windowId }, function () {
+            setTimeout(() => {
+                chrome.runtime.sendMessage({
+                    message: JSON.stringify({
+                        event: "SELECTED",
+                        body: info.selectionText,
+                    }),
+                });
+            }, 100);
+        });
+    }
 });
