@@ -10,11 +10,19 @@ function getSelectedText() {
 	return selectedText;
 }
 
+/**
+ @typedef EventType
+ @type {Object}
+ @property {string} event The event name.
+ @property {Object} [body] The body of the event.
+ */
+
 chrome.runtime.onMessage.addListener(function (request, sender) {
 	console.log(request.message, sender);
 	chrome.runtime.sendMessage({
 		message: JSON.stringify({
-			text: getSelectedText(),
+			event: "SELECTED",
+			body: getSelectedText(),
 		}),
 	});
 });
